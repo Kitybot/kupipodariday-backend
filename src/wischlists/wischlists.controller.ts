@@ -1,5 +1,6 @@
 import {
   Controller,
+  UseGuards,
   Get,
   Post,
   Body,
@@ -10,12 +11,14 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { Request as RequestExpress } from 'express';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { WischlistsService } from './wischlists.service';
 import { CreateWischlistDto } from './dto/create-wischlist.dto';
 import { UpdateWischlistDto } from './dto/update-wischlist.dto';
 import { IdInParamsWishList } from './dto/id-in-params-wishlist.dto';
 import { RestrictionUserInfoWishlistInterceptor } from './interceptors/restriction-user-info-wishlist.interceptor';
 
+@UseGuards(JwtAuthGuard)
 @Controller('wishlistlists')
 export class WischlistsController {
   constructor(private readonly wischlistsService: WischlistsService) {}

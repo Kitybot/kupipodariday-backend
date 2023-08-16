@@ -1,5 +1,6 @@
 import {
   Controller,
+  UseGuards,
   Get,
   Post,
   Body,
@@ -13,6 +14,7 @@ import {
 import { WischesService } from './wisches.service';
 import { CreateWischDto } from './dto/create-wisch.dto';
 import { UpdateWischDto } from './dto/update-wisch.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { IdWishInParamsDto } from './dto/id-wish.dto';
 import { UserHelper } from '../users/helpers/user.helper';
 import { Request as RequestExpress } from 'express';
@@ -29,7 +31,7 @@ export class WischesController {
     private readonly wischesService: WischesService,
     private readonly userHelper: UserHelper,
   ) {}
-
+  @UseGuards(JwtAuthGuard)
   @UseFilters(InvalidData)
   @Post()
   create(

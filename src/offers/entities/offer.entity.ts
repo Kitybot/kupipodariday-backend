@@ -30,7 +30,9 @@ export class Offer {
   @IsNotEmpty()
   amount: number;
 
-  @Column('boolean', { default: false })
+  @Column({
+     default: false,
+  })
   hidden: boolean;
 
   @CreateDateColumn()

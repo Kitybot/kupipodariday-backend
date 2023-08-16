@@ -1,5 +1,6 @@
 import {
   Controller,
+  UseGuards,
   Get,
   Post,
   Body,
@@ -12,6 +13,7 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { FindManyDto } from './dto/find-many.dto';
 import { Request as RequestExpress } from 'express';
 import { UserHelper } from './helpers/user.helper';
@@ -19,7 +21,7 @@ import {
   InvalidData,
   UserOrMailExistsExceptionFilter,
 } from '../filters/user-exists.filter';
-
+@UseGuards(JwtAuthGuard)
 @Controller('users')
 export class UsersController {
   constructor(
