@@ -51,13 +51,13 @@ export class WischesController {
   findAllTop() {
     return this.wischesService.findAllTop();
   }
-
+  @UseGuards(JwtAuthGuard)
   @UseInterceptors(FindOneResponseInterceptor)
   @Get(':id')
   findOne(@Param() params: IdWishInParamsDto) {
     return this.wischesService.findOneWish({ id: params.id });
   }
-
+  @UseGuards(JwtAuthGuard)
   @UseFilters(UpdateWishErrorFilter)
   @Patch(':id')
   update(
@@ -72,7 +72,7 @@ export class WischesController {
       userId,
     );
   }
-
+  @UseGuards(JwtAuthGuard)
   @UseFilters(EntityNotFoundErrorFilter)
   @Delete(':id')
   remove(
@@ -82,7 +82,7 @@ export class WischesController {
     const userId = this.userHelper.getUserIdOutRequest(request);
     return this.wischesService.removeWish(params.id, userId);
   }
-
+  @UseGuards(JwtAuthGuard)
   @Post(':id/copy')
   async copy(
     @Param() param: IdWishInParamsDto,
